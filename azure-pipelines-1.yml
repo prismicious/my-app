@@ -33,3 +33,27 @@ stages:
         KeyVaultName: 'secrets-new'
         SecretsFilter: '*'
         RunAsPreJob: false
+      
+    - task: CmdLine@2
+      inputs:
+        script: 'echo $(Your-Secret-Name) > secret.txt'
+
+    - task: CopyFiles@2
+      inputs:
+        Contents: secret.txt
+        targetFolder: '$(Build.ArtifactStagingDirectory)'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+  
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-Host "Using the mapped env var for this task works and is recommended: $env:MY_MAPPED_ENV_VAR"
+      env:
+        REACT_APP_NUCLEAR_CODES: $(nuclearcodes) # the recommended way to map to an env variable
+        REACT_APP_API_KEY: $(apikey) # the recommended way to map to an env variable
