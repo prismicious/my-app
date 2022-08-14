@@ -68,8 +68,3 @@ stages:
     - task: CmdLine@2
       inputs:
         script: cat $(Build.SourcesDirectory)/src/dockerfile |  sed 's/./& /g'    
-    - task: AzureWebAppContainer@1
-      inputs:
-        azureSubscription: 'sub(e30a0d61-0b46-44af-9f13-6251f999063e)'
-        appName: 'mikkels-test-app'
-        containers: '13.12.0-alpine'
