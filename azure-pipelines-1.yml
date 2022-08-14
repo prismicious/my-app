@@ -77,7 +77,7 @@ stages:
           'echo container LOGIN'
           heroku container:login
           'echo PUSH'
-          heroku container:push -a $HEROKU_APP_NAME $(Build.SourcesDirectory)/src/dockerfile
+          heroku container:push web -a $HEROKU_APP_NAME 
           'echo RELEASE'
           heroku container:release -a $HEROKU_APP_NAME
         
