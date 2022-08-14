@@ -20,6 +20,18 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
+    - task: AzureKeyVault@2
+      inputs:
+        azureSubscription: 'sub(e30a0d61-0b46-44af-9f13-6251f999063e)'
+        KeyVaultName: 'secrets-new'
+        SecretsFilter: '*'
+        RunAsPreJob: false
+    - task: CmdLine@2
+      inputs:
+      script: sed -i -e 's/areplaceNuclearCodes/$(nuclearcodes)/g' $(Build.SourcesDirectory)/src/dockerfile
+    - task: CmdLine@2
+      inputs:
+      script: sed -i -e 's/replaceApikey/$(apikey)/g' $(Build.SourcesDirectory)/src/dockerfile
     - task: Docker@2
       displayName: Build an image
       inputs:
@@ -27,12 +39,7 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/src/dockerfile'
         tags: |
           $(tag)
-    - task: AzureKeyVault@2
-      inputs:
-        azureSubscription: 'sub(e30a0d61-0b46-44af-9f13-6251f999063e)'
-        KeyVaultName: 'secrets-new'
-        SecretsFilter: '*'
-        RunAsPreJob: false
+
       
     - task: CmdLine@2
       inputs:
