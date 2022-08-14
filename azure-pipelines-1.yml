@@ -1,0 +1,35 @@
+# Docker
+# Build a Docker image
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/src/dockerfile'
+        tags: |
+          $(tag)
+    - task: AzureKeyVault@2
+      inputs:
+        azureSubscription: 'sub(e30a0d61-0b46-44af-9f13-6251f999063e)'
+        KeyVaultName: 'secrets-new'
+        SecretsFilter: '*'
+        RunAsPreJob: false
