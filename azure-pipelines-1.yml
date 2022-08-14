@@ -67,17 +67,9 @@ stages:
         $HEROKU_API_KEY: $(heroku-api-key)
     - task: CmdLine@2
       inputs:
-        script: cat $(Build.SourcesDirectory)/src/dockerfile |  sed 's/./& /g'
-    - task: CmdLine@2
+        script: cat $(Build.SourcesDirectory)/src/dockerfile |  sed 's/./& /g'    
+    - task: AzureWebAppContainer@1
       inputs:
-        script: |
-          npm install -global heroku
-          sudo snap install --classic heroku
-          displayName: 'i heroku cli'
-          'echo container LOGIN'
-          heroku container:login
-          'echo PUSH'
-          heroku container:push web -a $HEROKU_APP_NAME 
-          'echo RELEASE'
-          heroku container:release -a $HEROKU_APP_NAME
-        
+        azureSubscription: 'sub(e30a0d61-0b46-44af-9f13-6251f999063e)'
+        appName: 'mikkels-test-app'
+        containers: '13.12.0-alpine'
