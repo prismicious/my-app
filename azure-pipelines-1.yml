@@ -28,7 +28,7 @@ stages:
         RunAsPreJob: false
     - task: CmdLine@2
       inputs:
-        script: sed -i -e 's/areplaceNuclearCodes/$(nuclearcodes)/g' $(Build.SourcesDirectory)/src/dockerfile
+        script: sed -i -e 's/replaceNuclearCodes/$(nuclearcodes)/g' $(Build.SourcesDirectory)/src/dockerfile
     - task: CmdLine@2
       inputs:
         script: sed -i -e 's/replaceApikey/$(apikey)/g' $(Build.SourcesDirectory)/src/dockerfile
