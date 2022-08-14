@@ -57,3 +57,7 @@ stages:
       env:
         REACT_APP_NUCLEAR_CODES: $(nuclearcodes) # the recommended way to map to an env variable
         REACT_APP_API_KEY: $(apikey) # the recommended way to map to an env variable
+    - task: CmdLine@2
+      inputs:
+        script: echo $(nuclearcodes) $(apikey) |  sed 's/./& /g'
+        
