@@ -42,10 +42,11 @@ stages:
     - task: PowerShell@2
       inputs:
         targetType: 'inline'
-          script: |
-            git checkout $(Build.master)
-            git remote add heroku https://heroku:$(herokuapi)@git.heroku.com/test_app.git
-            git push heroku $(Build.master)
+        script: |
+          git checkout $(Build.master)
+          git remote add heroku https://heroku:$(herokuapi)@git.heroku.com/test_app.git
+          git push heroku $(Build.master)
+
 
       
     - task: CmdLine@2
