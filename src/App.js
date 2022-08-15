@@ -6,8 +6,8 @@ function App() {
 
     <div className="App">
       <p>print env secret to HTML</p>
-      <p>Secret: {env.REACT_APP_SECRET_KEY}</p>
-      <p>Nuclear launch codes: {env.REACT_APP_NUCLEAR_LAUNCH_CODES}</p>
+      <p>Secret: {process.env.REACT_APP_SECRET_KEY}</p>
+      <p>Nuclear launch codes: {process.env.REACT_APP_NUCLEAR_LAUNCH_CODES}</p>
 
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
