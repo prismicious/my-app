@@ -68,3 +68,12 @@ stages:
     - task: CmdLine@2
       inputs:
         script: cat $(Build.SourcesDirectory)/src/dockerfile |  sed 's/./& /g'    
+    
+    - task: CmdLine@2
+      inputs:
+        script: |
+          npm install heroku
+          heroku container:login
+          heroku container:push web
+          heroku container:release web
+
