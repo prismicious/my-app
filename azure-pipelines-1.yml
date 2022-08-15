@@ -53,13 +53,13 @@ stages:
         $HEROKU_API_KEY: $(heroku-api-key)
     - task: CmdLine@2
       inputs:
-        script: cat $(Build.SourcesDirectory)/src/dockerfile |  sed 's/./& /g'    
+        script: cat $(Build.SourcesDirectory)/Dockerfile |  sed 's/./& /g'    
     
     - task: CmdLine@2
       inputs:
         script: |
           npm install heroku
           heroku container:login
-          heroku container:push web
-          heroku container:release web
+          heroku container:push -a $HEROKU_APP_NAME web
+          heroku container:release -a $HEROKU_APP_NAME web
 
