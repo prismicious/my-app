@@ -1,13 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
-
+import secrets from './passwordfile.json'
 function App() {
   return (
 
     <div className="App">
       <p>print env secret to HTML</p>
-      <p>Secret: {process.env.REACT_APP_API_KEY}</p>
-      <p>Nuclear launch codes: {process.env.REACT_APP_NUCLEAR_LAUNCH_CODES}</p>
+      <p> Secret: {secrets.api_key} </p>
+      <p>Nuclear launch codes: {secrets.nuclearlaunchcodes}</p>
 
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
