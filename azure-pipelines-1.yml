@@ -33,6 +33,6 @@ stages:
         script: |
           npm install heroku
           heroku container:login
-          heroku container:push -a $HEROKU_APP_NAME web
-          heroku container:release -a $HEROKU_APP_NAME web
+          heroku container:push -a mikkels-test-app web
+          heroku container:release -a mikkels-test-app web
 
