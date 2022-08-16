@@ -20,6 +20,12 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
+    - task: AzureKeyVault@2
+      inputs:
+        azureSubscription: 'sub(e30a0d61-0b46-44af-9f13-6251f999063e)'
+        KeyVaultName: 'secrets-new'
+        SecretsFilter: '*'
+        RunAsPreJob: false
     - task: Docker@2
       displayName: Build an image
       inputs:
@@ -33,6 +39,6 @@ stages:
         script: |
           npm install heroku
           heroku container:login
-          heroku container:push -a mikkels-test-app web
-          heroku container:release -a mikkels-test-app web
+          heroku container:push -a $HEROKU_APP_NAME web
+          heroku container:release -a $HEROKU_APP_NAME web
 
